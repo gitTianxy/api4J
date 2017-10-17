@@ -13,7 +13,7 @@ import java.util.HashMap;
  * Created by kevintian on 2017/10/17.
  */
 public class TypeTokenDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchMethodException {
         // type erase on run
         ArrayList<String> stringList = Lists.newArrayList();
         ArrayList<Integer> intList = Lists.newArrayList();
@@ -30,6 +30,8 @@ public class TypeTokenDemo {
         TypeToken<?> keyToken = mapTypeToken.resolveType(HashMap.class.getTypeParameters()[0]);
         TypeToken<?> valToken = mapTypeToken.resolveType(HashMap.class.getTypeParameters()[1]);
         System.out.println(String.format("key type: %s, value type: %s", keyToken.getType(), valToken.getType()));
+        TypeToken entrySetToken = mapTypeToken.resolveType(HashMap.class.getMethod("entrySet").getGenericReturnType());
+        System.out.println("return type of entrySet(): " + entrySetToken.getType());
     }
 
 }
