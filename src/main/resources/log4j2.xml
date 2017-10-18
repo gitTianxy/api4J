@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="300">
+    <properties>
+        <property name="LOG_HOME">log</property>
+        <property name="FILE_NAME">log4j2</property>
+    </properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <!-- specified log file -->
+        <RollingRandomAccessFile name="MyLog4j2File"
+                                 fileName="${LOG_HOME}/${FILE_NAME}.log"
+                                 filePattern="${LOG_HOME}/$${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd HH-mm}-%i.log">
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/><!--unit:min-->
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingRandomAccessFile>
+        <!-- info-warn log(info<=level<eror) -->
+        <RollingRandomAccessFile name="Info2WarnFile"
+                                 fileName="${LOG_HOME}/${FILE_NAME}-info2warn.log"
+                                 filePattern="${LOG_HOME}/$${date:yyyy-MM}/info2warn-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingRandomAccessFile>
+        <!-- error log(level>=error) -->
+        <RollingRandomAccessFile name="ErrorFile"
+                                 fileName="${LOG_HOME}/${FILE_NAME}-error.log"
+                                 filePattern="${LOG_HOME}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingRandomAccessFile>
+        <!-- 异步写日志 -->
+        <Async name="AsyncLog4j2File">
+            <AppenderRef ref="Info2WarnFile"/>
+        </Async>
+        <!-- logging 2 mongo -->
+        <NoSql name="MongoAppender">
+            <MongoDb databaseName="common" collectionName="api4j-log" server="localhost" port="27017" username="kevin"
+                     password="1234"/>
+        </NoSql>
+    </Appenders>
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Info2WarnFile"/>
+            <AppenderRef ref="ErrorFile"/>
+        </Root>
+        <Logger name="mylog4j2" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="MyLog4j2File"/>
+        </Logger>
+        <Logger name="asynclog4j2" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="AsyncLog4j2File"/>
+        </Logger>
+        <Logger name="mongolog" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="MongoAppender"/>
+        </Logger>
+    </Loggers>
+</Configuration>
