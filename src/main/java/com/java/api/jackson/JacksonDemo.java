@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -45,6 +46,16 @@ public class JacksonDemo {
         System.out.println("***json 2 object: ");
         Container retObj = demo.json2Obj(json, Container.class);
         System.out.println(retObj);
+        System.out.println("***json 2 object-array: ");
+        String elements = demo.obj2Json(elementList);
+        for(Element e : demo.json2Obj(elements, Element[].class)) {
+            System.out.println(e);
+        }
+        System.out.println("***json 2 object-list: ");
+        List<Element> resList = demo.json2Obj(elements, new TypeReference<List<Element>>(){});
+        for(Element e : resList) {
+            System.out.println(e);
+        }
         System.out.println("***json 2 JsonNode:");
         JsonNode retNode = demo.json2JsonNode(json);
         for(Field f : Container.class.getDeclaredFields()) {
@@ -75,6 +86,10 @@ public class JacksonDemo {
      */
     <T> T json2Obj(String json, Class<T> objCls) throws IOException {
         return new ObjectMapper().readValue(json, objCls);
+    }
+
+    <T> T json2Obj(String json, TypeReference typeRef) throws IOException {
+        return new ObjectMapper().readValue(json, typeRef);
     }
 
     /**
