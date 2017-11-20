@@ -17,6 +17,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DOM方式生成与解析XML文档
@@ -33,7 +35,7 @@ public class DomDemo implements IXmlDom {
     public static void main(String[] args) {
         DomDemo demo = new DomDemo();
         demo.init();
-        String xmlFile = "result/domdemo.xml";
+        String xmlFile = "result/dom_demo.xml";
         demo.createXml(xmlFile);
         demo.parserXml(xmlFile);
     }
@@ -51,17 +53,18 @@ public class DomDemo implements IXmlDom {
      * OPERATION STEPS:
      * I. build dom
      * II. transform dom to string
-     *
+     * <p>
      * METHODS
      * 1. Document:
-     *      a. createElement(tagName)
-     *      b. createTextNode(data)
+     * a. createElement(tagName)
+     * b. createTextNode(data)
      * 2. Element:
-     *      a. appendChild(element)
+     * a. appendChild(element)
      * 3. Transformer: ...
      *
      * @param fileName 文件全路径名称
      */
+    @Override
     public void createXml(String fileName) {
         /**
          * I. build dom
@@ -74,7 +77,7 @@ public class DomDemo implements IXmlDom {
         Element employee = doc.createElement("employee");
         // 1.name
         Element name = doc.createElement("name");
-        name.appendChild(doc.createTextNode("丁宏亮"));
+        name.appendChild(doc.createTextNode("Zhangsan"));
         employee.appendChild(name);
         // 2.sex
         Element sex = doc.createElement("sex");
@@ -82,9 +85,25 @@ public class DomDemo implements IXmlDom {
         employee.appendChild(sex);
         // 3.age
         Element age = doc.createElement("age");
-        age.appendChild(doc.createTextNode("30"));
+        age.appendChild(doc.createTextNode("29"));
         employee.appendChild(age);
+        //
+        root.appendChild(employee);
 
+        employee = doc.createElement("employee");
+        // 1.name
+        name = doc.createElement("name");
+        name.appendChild(doc.createTextNode("WangFang"));
+        employee.appendChild(name);
+        // 2.sex
+        sex = doc.createElement("sex");
+        sex.appendChild(doc.createTextNode("female"));
+        employee.appendChild(sex);
+        // 3.age
+        age = doc.createElement("age");
+        age.appendChild(doc.createTextNode("28"));
+        employee.appendChild(age);
+        //
         root.appendChild(employee);
         /**
          * II. transform dom to string
@@ -118,28 +137,11 @@ public class DomDemo implements IXmlDom {
      *
      * @param fileName 文件全路径名称
      */
+    @Override
     public void parserXml(String fileName) {
         try {
             Document document = this.builder.parse(fileName);
-
-            NodeList employees = document.getChildNodes();
-            for (int i = 0; i < employees.getLength(); i++) {
-                Node employee = employees.item(i);
-                NodeList employeeInfo = employee.getChildNodes();
-                for (int j = 0; j < employeeInfo.getLength(); j++) {
-                    Node node = employeeInfo.item(j);
-                    NodeList employeeMeta = node.getChildNodes();
-                    for (int k = 0; k < employeeMeta.getLength(); k++) {
-                        if ("#text".equals(employeeMeta.item(k).getNodeName())) {
-                            continue;
-                        }
-                        System.out.println(employeeMeta.item(k).getNodeName()
-                                + ":" + employeeMeta.item(k).getTextContent());
-                    }
-                }
-            }
-//            printChild(document);
-            System.out.println("解析完毕");
+            printNode("", document);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (SAXException e) {
@@ -149,14 +151,22 @@ public class DomDemo implements IXmlDom {
         }
     }
 
-    private void printChild(Node n) {
-        if (n.hasChildNodes()) {
-            NodeList children = n.getChildNodes();
-            for (int i=0; i<children.getLength(); i++) {
-                printChild(children.item(i));
+    private void printNode(String blank, Node n) {
+        System.out.print("\n" + blank + n.getNodeName() + ":");
+
+        NodeList children = n.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            Node child = children.item(i);
+            if (child.hasChildNodes()) {
+                printNode("    " + blank, child);
+                continue;
             }
-        } else {
-            System.out.println(n.getNodeName() + ":" + n.getTextContent());
+            if ("\n".equals(child.getNodeValue()) || "".equals(child.getNodeValue())) {
+                continue;
+            }
+            if ("#text".equals(child.getNodeName())) {
+                System.out.print(child.getNodeValue());
+            }
         }
     }
 }
