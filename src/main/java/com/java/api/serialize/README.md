@@ -13,14 +13,27 @@
     - ObjectInputStream/ObjectOutputStream
     - jackson
     - gson
+* 序列化ID
+    - 虚拟机是否允许反序列化，不仅取决于类路径和功能代码是否一致，一个非常重要的一点是两个类的序列化 ID 是否一致（就是 private static final long serialVersionUID = 1L）
+    - 序列化 ID 在 Eclipse 下提供了两种生成策略，一个是固定的 1L，一个是随机生成一个不重复的 long 类型数据（实际上是使用 JDK 工具生成），在这里有一个建议，如果没有特殊需求，就是用默认的 1L 就可以，这样可以确保代码一致时反序列化成功。那么随机生成的序列化 ID 有什么作用呢，有些时候，通过改变序列化 ID 可以用来限制某些用户的使用。
 
-## ObjectInputStream/ObjectOutputStream
-* 序列化方法：
+## 通用方法``
+* 序列化：
 ```java
 ObjectOutputStream.writeObject(o);
 ```
-* 反序列化方法：
+* 反序列化：
 ```java
 ObjectInputStream.readObject();
 ```
 
+## 自定义方法
+* transient: 定义不序列化的字段
+
+* writeObject(ObjectOutputStream oos): 重写对象的序列化方法
+
+* readObject(ObjectInputStream ois): 重写对象的反序列化方法
+
+* writeReplace(): 在序列化的时候改变目标的类型(obj_origin-->string 变成 obj_repl-->string)
+
+* readReplace(): 反序列化的时候对目标的类型进行更改(string-->obj_origin 变成 string-->obj_origin-->obj_repl)
