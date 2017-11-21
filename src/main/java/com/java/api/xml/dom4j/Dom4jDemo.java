@@ -3,15 +3,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Iterator;
 import java.util.List;
 
 import com.java.api.xml.IXmlDom;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
-
-import javax.xml.transform.OutputKeys;
 
 /**
  *
@@ -23,7 +20,7 @@ public class Dom4jDemo implements IXmlDom {
         String xmlFile = "result/dom4j_demo.xml";
         Dom4jDemo demo = new Dom4jDemo();
         demo.createXml(xmlFile);
-        demo.parserXml(xmlFile);
+        demo.parseXml(xmlFile);
     }
 
     @Override
@@ -58,7 +55,7 @@ public class Dom4jDemo implements IXmlDom {
     }
 
     @Override
-    public void parserXml(String fileName) {
+    public void parseXml(String fileName) {
         File inputXml=new File(fileName);
         SAXReader saxReader = new SAXReader();
         try {

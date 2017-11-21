@@ -17,8 +17,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * DOM方式生成与解析XML文档
@@ -37,7 +35,7 @@ public class DomDemo implements IXmlDom {
         demo.init();
         String xmlFile = "result/dom_demo.xml";
         demo.createXml(xmlFile);
-        demo.parserXml(xmlFile);
+        demo.parseXml(xmlFile);
     }
 
     public void init() {
@@ -138,7 +136,7 @@ public class DomDemo implements IXmlDom {
      * @param fileName 文件全路径名称
      */
     @Override
-    public void parserXml(String fileName) {
+    public void parseXml(String fileName) {
         try {
             Document document = this.builder.parse(fileName);
             printNode("", document);

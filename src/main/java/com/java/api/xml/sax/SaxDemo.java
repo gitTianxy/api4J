@@ -31,7 +31,7 @@ public class SaxDemo implements IXmlDom {
         SaxDemo demo = new SaxDemo();
         String xmlFile = "result/sax_demo.xml";
         demo.createXml(xmlFile);
-        demo.parserXml(xmlFile);
+        demo.parseXml(xmlFile);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class SaxDemo implements IXmlDom {
     }
 
     @Override
-    public void parserXml(String fileName) {
+    public void parseXml(String fileName) {
         SAXParserFactory saxfac = SAXParserFactory.newInstance();
         try {
             SAXParser saxparser = saxfac.newSAXParser();
