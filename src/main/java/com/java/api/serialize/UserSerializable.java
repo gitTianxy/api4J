@@ -38,7 +38,7 @@ public class UserSerializable implements Serializable {
     }
 
     public boolean compareTo(UserSerializable u) {
-        return (name == u.getName()) && (password == u.getPassword());
+        return (name == u.getName()) && (phone == u.getPhone());
     }
 
     private void writeObject(ObjectOutputStream oos) throws IOException {

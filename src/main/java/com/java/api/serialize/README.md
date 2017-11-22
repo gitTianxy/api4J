@@ -11,13 +11,13 @@
 * java对象可以序列化的前提条件是：对象所属的类以及类中所有属性都实现了`Serializable`接口
 * 常用的序列化/反序列化api有：
     - ObjectInputStream/ObjectOutputStream
-    - jackson
-    - gson
+    - jackson: obj-json
+    - jaxb: obj-xml
 * 序列化ID
     - 虚拟机是否允许反序列化，不仅取决于类路径和功能代码是否一致，一个非常重要的一点是两个类的序列化 ID 是否一致（就是 private static final long serialVersionUID = 1L）
     - 序列化 ID 在 Eclipse 下提供了两种生成策略，一个是固定的 1L，一个是随机生成一个不重复的 long 类型数据（实际上是使用 JDK 工具生成），在这里有一个建议，如果没有特殊需求，就是用默认的 1L 就可以，这样可以确保代码一致时反序列化成功。那么随机生成的序列化 ID 有什么作用呢，有些时候，通过改变序列化 ID 可以用来限制某些用户的使用。
 
-## 通用方法``
+## 通用方法
 * 序列化：
 ```java
 ObjectOutputStream.writeObject(o);
