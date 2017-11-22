@@ -7,6 +7,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * POINTS:
+ * 1. password序列化前加密, 通过重写定制readObject()和writeObject()方法
+ * 2. description字段为transient
+ * 3. 定义compareTo方法用于比较原对象和反序列化生成的对象
+ */
 @Data
 public class UserSerializable implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -17,7 +23,7 @@ public class UserSerializable implements Serializable {
     private String address;
     private String phone;
     private String password;
-    private transient String discription;
+    private transient String description;
 
     @Override
     public String toString() {
@@ -27,8 +33,12 @@ public class UserSerializable implements Serializable {
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
-                ", discription='" + discription + '\'' +
+                ", description='" + description + '\'' +
                 '}';
+    }
+
+    public boolean compareTo(UserSerializable u) {
+        return (name == u.getName()) && (password == u.getPassword());
     }
 
     private void writeObject(ObjectOutputStream oos) throws IOException {
