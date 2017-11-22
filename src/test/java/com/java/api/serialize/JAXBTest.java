@@ -3,6 +3,9 @@ package com.java.api.serialize;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JAXBTest {
     UserXml u;
     String filePath;
@@ -17,6 +20,14 @@ public class JAXBTest {
         u.setSex("m");
         u.setAddress("ZhangSan road");
         u.setDescription(u.toString());
+        List<UserXml.Element> elements = new ArrayList<>();
+        for (int id = 0; id<5; id++) {
+            UserXml.Element e = new UserXml.Element();
+            e.setId(id);
+            e.setTitle("e" + id);
+            elements.add(e);
+        }
+        u.setElements(new UserXml.Elements(elements));
 
         filePath = "result/serialize2xml_demo.xml";
     }
