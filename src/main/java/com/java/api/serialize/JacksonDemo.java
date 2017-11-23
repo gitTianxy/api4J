@@ -1,4 +1,4 @@
-package com.java.api.jackson;
+package com.java.api.serialize;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,10 +9,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.*;
 
 /**
+ * Object <--> JSON
+ *
  * ref:
  * 1. http://blog.csdn.net/clementad/article/details/46416647
  * 2. http://blog.csdn.net/accountwcx/article/details/24585987
@@ -21,48 +22,6 @@ import java.util.*;
  * Created by kevintian on 2017/9/22.
  */
 public class JacksonDemo {
-    public static void main(String[] args) throws Exception {
-        JacksonDemo demo = new JacksonDemo();
-        // para data
-        Container javaObj = new Container();
-        List<Element> elementList = new ArrayList<>();
-        Map<String, Element> elementMap = new HashMap<>();
-        long idx = 0;
-        while (idx < 10) {
-            Element element = new Element(++idx, String.valueOf(idx), new Date());
-            elementList.add(element);
-            elementMap.put(String.valueOf(idx), element);
-        }
-        javaObj.setId(0);
-        javaObj.setName("javaObj");
-        javaObj.setElementList(elementList);
-        javaObj.setElementMap(elementMap);
-        javaObj.setOthers("others");
-        javaObj.setCreateTime(new Date());
-        // do test
-        System.out.println("***object 2 json: ");
-        String json = demo.obj2Json(javaObj);
-        System.out.println(json);
-        System.out.println("***json 2 object: ");
-        Container retObj = demo.json2Obj(json, Container.class);
-        System.out.println(retObj);
-        System.out.println("***json 2 object-array: ");
-        String elements = demo.obj2Json(elementList);
-        for(Element e : demo.json2Obj(elements, Element[].class)) {
-            System.out.println(e);
-        }
-        System.out.println("***json 2 object-list: ");
-        List<Element> resList = demo.json2Obj(elements, new TypeReference<List<Element>>(){});
-        for(Element e : resList) {
-            System.out.println(e);
-        }
-        System.out.println("***json 2 JsonNode:");
-        JsonNode retNode = demo.json2JsonNode(json);
-        for(Field f : Container.class.getDeclaredFields()) {
-            String fieldName = f.getName();
-            System.out.println(String.format("%s=%s", fieldName, retNode.get(fieldName)));
-        }
-    }
 
     /**
      * convert java object 2 json string
@@ -94,6 +53,12 @@ public class JacksonDemo {
 
     /**
      * convert json string to JsonNode, which can be used as a map
+     *
+     * JsonNode methods:
+     * 1. fieldNames()
+     * 2. elements()
+     * 3. fields()
+     * 4. get(fieldName)
      * @param json
      * @return
      * @throws IOException
