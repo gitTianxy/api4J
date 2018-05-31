@@ -8,7 +8,7 @@ import org.mongodb.morphia.annotations.Indexed;
 public class EntityDemo extends BaseEntity {
     @Indexed(name = "idx_uniq", unique = true)
     private String uniqField;
-    private long generalField;
+    private String generalField;
 
     public String getUniqField() {
         return uniqField;
@@ -18,11 +18,11 @@ public class EntityDemo extends BaseEntity {
         this.uniqField = uniqField;
     }
 
-    public long getGeneralField() {
+    public String getGeneralField() {
         return generalField;
     }
 
-    public void setGeneralField(long generalField) {
+    public void setGeneralField(String generalField) {
         this.generalField = generalField;
     }
 }

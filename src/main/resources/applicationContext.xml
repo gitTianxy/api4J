@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="propertConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:config.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="api4jDs" class="com.java.api.mongo.morphia.base.MongoDSManager" init-method="createInstance">
+        <property name="host" value="${mongo.host}"/>
+        <property name="port" value="${mongo.port}"/>
+        <property name="db" value="${mongo.db}"/>
+        <property name="user" value="${mongo.user}"/>
+        <property name="pwd" value="${mongo.pwd}"/>
+        <!--<property name="connectTimeout" value="${mongo.connecttimeout}"/>-->
+        <!--<property name="socketTimeout" value="${mongo.sockettimeout}"/>-->
+        <!--<property name="maxConnectIdleTime" value="${mongo.maxconnectidletime}"/>-->
+        <property name="mapPackages">
+            <array>
+                <value>${mongo.morphia.map.package}</value>
+            </array>
+        </property>
+    </bean>
+
+    <bean id="entityDemoMAO" class="com.java.api.mongo.morphia.mao.EntityDemoMAO"/>
+</beans>
