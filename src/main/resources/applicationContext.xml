@@ -13,7 +13,7 @@
         </property>
     </bean>
 
-    <bean id="api4jDs" class="com.java.api.mongo.morphia.base.MongoDSManager" init-method="createInstance">
+    <bean id="api4jDs" class="com.java.api.mongo.morphia.base.MongoDSManager">
         <property name="host" value="${mongo.host}"/>
         <property name="port" value="${mongo.port}"/>
         <property name="db" value="${mongo.db}"/>
@@ -29,5 +29,7 @@
         </property>
     </bean>
 
-    <bean id="entityDemoMAO" class="com.java.api.mongo.morphia.mao.EntityDemoMAO"/>
+    <bean id="entityDemoMAO" class="com.java.api.mongo.morphia.mao.EntityDemoMAO">
+        <constructor-arg name="api4jDs" ref="api4jDs" />
+    </bean>
 </beans>

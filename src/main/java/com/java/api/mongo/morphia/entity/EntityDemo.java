@@ -4,7 +4,7 @@ import com.java.api.mongo.morphia.base.BaseEntity;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Indexed;
 
-@Entity(value = "entity_demo", noClassnameStored = true)
+@Entity(value = "morphia_entity", noClassnameStored = true)
 public class EntityDemo extends BaseEntity {
     @Indexed(name = "idx_uniq", unique = true)
     private String uniqField;

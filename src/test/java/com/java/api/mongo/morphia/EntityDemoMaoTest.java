@@ -1,4 +1,4 @@
-package com.java.api.mongo;
+package com.java.api.mongo.morphia;
 
 import com.java.api.mongo.morphia.entity.EntityDemo;
 import com.java.api.mongo.morphia.mao.EntityDemoMAO;
@@ -9,6 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * 针对DefaultServerMonitor会注册连接`common`数据库, 所以做一个创建和注册操作
+ * > use common;
+ * switched to db common
+ * > db.createUser({user:'kevin',pwd:'1234',roles:['read']});
+ * Successfully added user: { "user" : "kevin", "roles" : [ "read" ] }
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
         "classpath:/applicationContext.xml"
