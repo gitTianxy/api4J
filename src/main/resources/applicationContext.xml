@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
        xsi:schemaLocation="
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-4.2.xsd
+            http://www.springframework.org/schema/data/mongo
+            http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
             http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd">
 
@@ -13,6 +19,7 @@
         </property>
     </bean>
 
+    <!-- morphia mongo config -->
     <bean id="api4jDs" class="com.java.api.mongo.morphia.base.MongoDSManager">
         <property name="host" value="${mongo.host}"/>
         <property name="port" value="${mongo.port}"/>
@@ -28,8 +35,17 @@
             </array>
         </property>
     </bean>
-
     <bean id="entityDemoMAO" class="com.java.api.mongo.morphia.mao.EntityDemoMAO">
         <constructor-arg name="api4jDs" ref="api4jDs" />
     </bean>
+
+    <!-- spring data mongo config -->
+    <bean id="mongoTemplate" class="com.java.api.mongo.springdata.MongoTemplateManager">
+        <property name="mongoUri" value="${mongo.uri}" />
+        <!--<property name="socketTimeout" value="" />-->
+        <!--<property name="connectTimeout" value="" />-->
+        <!--<property name="maxConnectIdleTime" value="" />-->
+    </bean>
+    <mongo:repositories base-package="com.java.api.mongo.springdata" />
+
 </beans>
