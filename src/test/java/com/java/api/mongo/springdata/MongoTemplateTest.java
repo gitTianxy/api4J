@@ -25,21 +25,21 @@ public class MongoTemplateTest {
     }
 
     @Autowired
-    private MongoTemplate mongoTemplate;
+    private MongoTemplate api4jTemplate;
 
     @Test
     public void save() {
-        mongoTemplate.save(doc);
+        api4jTemplate.save(doc);
     }
 
     @Test
     public void find() {
-        DocumentDemo demo = mongoTemplate.findById(id, DocumentDemo.class);
+        DocumentDemo demo = api4jTemplate.findById(id, DocumentDemo.class);
         System.out.println(demo);
     }
 
     @Test
     public void delete() {
-        mongoTemplate.remove(doc);
+        api4jTemplate.remove(doc);
     }
 }

@@ -24,8 +24,8 @@ public class MongoRepositoryTest {
         System.out.println(doc);
     }
 
-    @Before
-    public void add() {
+    @Test
+    public void save() {
         DocumentDemo doc = new DocumentDemo();
         doc.setId(id);
         doc.setName(name);
