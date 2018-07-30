@@ -180,6 +180,20 @@
             <artifactId>spring-data-mongodb</artifactId>
             <version>${org.springdata.version}</version>
         </dependency>
+        <!-- myql JDBC -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.11</version>
+        </dependency>
+
+        <!-- hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.3.3.Final</version>
+        </dependency>
+
 
     </dependencies>
     <build>
