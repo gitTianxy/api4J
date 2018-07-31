@@ -18,6 +18,7 @@
             </list>
         </property>
     </bean>
+    <!--<import resource="classpath:applicationContext-hibernate.xml" />-->
 
     <!-- morphia mongo config -->
     <bean id="api4jDs" class="com.java.api.mongo.morphia.base.MongoDSManager">

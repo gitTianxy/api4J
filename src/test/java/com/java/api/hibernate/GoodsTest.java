@@ -1,6 +1,6 @@
 package com.java.api.hibernate;
 
-import com.java.api.db.hibernate.entity.Goods;
+import com.java.api.mysql.hibernate.entity.Goods;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

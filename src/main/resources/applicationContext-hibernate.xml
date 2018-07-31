@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <tx:annotation-driven transaction-manager="hibernateTransactionManager"/>
+
+    <!-- data source -->
+    <bean id="hibernateDs" class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="url" value="${hibernate.mysql.url}" />
+        <property name="username" value="${hibernate.mysql.user}" />
+        <property name="password" value="${hibernate.mysql.pwd}" />
+        <property name="driverClassName" value="${hibernate.mysql.driverClass}" />
+        <property name="initialSize" value="${hibernate.mysql.initialSize}" />
+        <property name="maxTotal" value="${hibernate.mysql.maxActive}" />
+        <property name="maxIdle" value="${hibernate.mysql.maxIdle}" />
+        <property name="maxWaitMillis" value="${hibernate.mysql.maxWait}" />
+        <property name="poolPreparedStatements" value="true" />
+        <property name="testOnBorrow" value="true" />
+        <property name="validationQuery" value="SELECT 1 FROM DUAL" />
+    </bean>
+
+    <!-- 配置sessionFactory对象 -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="hibernateDs" />
+        <property name="mappingLocations">
+            <list>
+                <value>classpath:/persistence/*.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="connection.autocommit">true</prop>
+                <prop key="hibernate.jdbc.batch_size">20</prop>
+                <prop key="hibernate.jdbc.fetch_size">20</prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
+            </props>
+        </property>
+<!--        <property name="configLocations">
+            <list>
+                <value>classpath:hibernate.cfg.xml</value>
+            </list>
+        </property>-->
+    </bean>
+
+    <!-- transaction -->
+    <bean id="hibernateTransactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <!--<bean name="tranInterceptor" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="hibernateTransactionManager"></property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED,,,</prop>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+        <property name="target" ref="goodsDao"></property>
+    </bean>-->
+    <!-- dao -->
+    <bean id="goodsDao" class="com.java.api.mysql.hibernate.dao.GoodsDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+</beans>
