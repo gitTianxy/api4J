@@ -10,6 +10,9 @@
             http://www.springframework.org/schema/tx
             http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+    <context:annotation-config />
+    <context:component-scan base-package="com.java.api.mysql.hibernate" />
+
     <tx:annotation-driven transaction-manager="hibernateTransactionManager"/>
 
     <!-- data source -->
@@ -17,7 +20,6 @@
         <property name="url" value="${hibernate.mysql.url}" />
         <property name="username" value="${hibernate.mysql.user}" />
         <property name="password" value="${hibernate.mysql.pwd}" />
-        <property name="driverClassName" value="${hibernate.mysql.driverClass}" />
         <property name="initialSize" value="${hibernate.mysql.initialSize}" />
         <property name="maxTotal" value="${hibernate.mysql.maxActive}" />
         <property name="maxIdle" value="${hibernate.mysql.maxIdle}" />
