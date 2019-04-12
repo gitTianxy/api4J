@@ -14,11 +14,7 @@
         <property name="format_sql">true</property>
 
         <!-- DB schema will be updated if needed -->
-<<<<<<< HEAD
-         <property name="hbm2ddl.auto">update</property>
-=======
         <!-- <property name="hbm2ddl.auto">update</property> -->
->>>>>>> 4a210c222d66585279a4b5995dd01a187c91f4d3
         <mapping class="com.java.api.mysql.hibernate.entity.Goods" />
     </session-factory>
 </hibernate-configuration>
