@@ -27,17 +27,12 @@ public class NativeSerializeTest {
 
     @Test
     public void testSerialize() throws Exception {
-        for(int i = 1; i<=100; i++) {
-            demo.serialize(u, outputPath);
-        }
+        demo.serialize(u, outputPath);
     }
 
     @Test
     public void testDeserialize() throws Exception {
-        for(int i = 1; i<=100; i++) {
-            UserSerializable out = (UserSerializable) demo.deserialize(outputPath);
-            Assert.assertEquals(u, out);
-            System.out.println("round" + i + ":" + out);
-        }
+        UserSerializable out = (UserSerializable) demo.deserialize(outputPath);
+        Assert.assertEquals(u, out);
     }
 }
