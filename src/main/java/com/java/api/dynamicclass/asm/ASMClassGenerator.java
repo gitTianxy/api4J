@@ -1,7 +1,7 @@
-package com.java.api.proxy.asm;
+package com.java.api.dynamicclass.asm;
 
 
-import com.java.api.proxy.MyClassLoader;
+import com.java.api.dynamicclass.MyClassLoader;
 import net.bytebuddy.jar.asm.ClassWriter;
 import net.bytebuddy.jar.asm.MethodVisitor;
 import net.bytebuddy.jar.asm.Opcodes;

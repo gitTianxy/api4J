@@ -1,6 +1,6 @@
-package com.java.api.proxy.cglib;
+package com.java.api.dynamicclass.cglib;
 
-import com.java.api.proxy.Programmer;
+import com.java.api.dynamicclass.Programmer;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;

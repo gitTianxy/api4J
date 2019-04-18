@@ -1,4 +1,4 @@
-package com.java.api.proxy;
+package com.java.api.dynamicclass;
 
 /**
  * @Author: kevin

@@ -1,6 +1,6 @@
-package com.java.api.proxy.javassist;
+package com.java.api.dynamicclass.javassist;
 
-import com.java.api.proxy.MyClassLoader;
+import com.java.api.dynamicclass.MyClassLoader;
 import javassist.*;
 
 import java.io.IOException;
