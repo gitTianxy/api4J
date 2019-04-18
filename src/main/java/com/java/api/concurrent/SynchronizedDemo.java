@@ -5,7 +5,7 @@ package com.java.api.concurrent;
  * @Author: kevin
  * @Date: 2019/4/14
  */
-public class SynchronizeDemo {
+public class SynchronizedDemo {
 
     String name;
     int count;
@@ -15,7 +15,7 @@ public class SynchronizeDemo {
     static Integer clsLock = 1;
     static Integer clsLock2 = 2;
 
-    public SynchronizeDemo(String name) {
+    public SynchronizedDemo(String name) {
         this.name = name;
     }
 
@@ -43,7 +43,7 @@ public class SynchronizeDemo {
         final int threadNum = 5;
         Thread[] threads = new Thread[threadNum];
         // 同一个实例的sync方法看看有没有同步
-        SynchronizeDemo demo = new SynchronizeDemo("instance_s");
+        SynchronizedDemo demo = new SynchronizedDemo("instance_s");
         for (int i = 0; i < threadNum; i++) {
             threads[i] = new Thread(() -> {
                 demo.syncMethod1();
@@ -58,7 +58,7 @@ public class SynchronizeDemo {
         seperatingLine();
         // 独立实例的sync方法间看有没有同步
         for (int i = 0; i < threadNum; i++) {
-            SynchronizeDemo sd = new SynchronizeDemo("instance_" + i);
+            SynchronizedDemo sd = new SynchronizedDemo("instance_" + i);
             threads[i] = new Thread(() -> {
                 sd.syncMethod1();
                 sd.syncMethod2();
@@ -79,7 +79,7 @@ public class SynchronizeDemo {
         final int threadNum = 5;
         Thread[] threads = new Thread[threadNum];
         for (int i = 0; i < threadNum; i++) {
-            threads[i] = new Thread(() -> SynchronizeDemo.staticSyncMethod(), "thread_" + i);
+            threads[i] = new Thread(() -> SynchronizedDemo.staticSyncMethod(), "thread_" + i);
             threads[i].start();
         }
         for (int i = 0; i < threadNum; i++) {
@@ -96,7 +96,7 @@ public class SynchronizeDemo {
         final int threadNum = 5;
         Thread[] threads = new Thread[threadNum];
         // lock on instance:
-        final SynchronizeDemo demo = new SynchronizeDemo("lock-on-instance");
+        final SynchronizedDemo demo = new SynchronizedDemo("lock-on-instance");
         for (int i = 0; i < threadNum; i++) {
             threads[i] = new Thread(() -> {
                 synchronized (demo) {
@@ -119,9 +119,9 @@ public class SynchronizeDemo {
         Thread[] threads = new Thread[threadNum];
         for (int i = 0; i < threadNum; i++) {
             threads[i] = new Thread(() -> {
-                synchronized (SynchronizeDemo.class) {
-                    SynchronizeDemo.clsCount += 1;
-                    System.out.println(Thread.currentThread().getName() + "| " + SynchronizeDemo.clsCount);
+                synchronized (SynchronizedDemo.class) {
+                    SynchronizedDemo.clsCount += 1;
+                    System.out.println(Thread.currentThread().getName() + "| " + SynchronizedDemo.clsCount);
                 }
             }, "thread_" + i);
             threads[i].start();
@@ -141,7 +141,7 @@ public class SynchronizeDemo {
     static void syncOnField() throws InterruptedException {
         final int threadNum = 5;
         Thread[] threads = new Thread[threadNum];
-        SynchronizeDemo demo = new SynchronizeDemo("");
+        SynchronizedDemo demo = new SynchronizedDemo("");
         for (int i = 0; i < threadNum; i++) {
             if(i % 2 == 0) {
                 threads[i] = new Thread(() -> {
@@ -186,7 +186,7 @@ public class SynchronizeDemo {
         for (int i = 0; i < threadNum; i++) {
             if (i % 2 == 0) {
                 threads[i] = new Thread(() -> {
-                    synchronized (SynchronizeDemo.clsLock) {
+                    synchronized (SynchronizedDemo.clsLock) {
                         System.out.println(Thread.currentThread().getName() + "| work START...");
                         try {
                             Thread.sleep(1000);
@@ -198,7 +198,7 @@ public class SynchronizeDemo {
                 }, "thread_" + i);
             } else {
                 threads[i] = new Thread(() -> {
-                    synchronized (SynchronizeDemo.clsLock2) {
+                    synchronized (SynchronizedDemo.clsLock2) {
                         System.out.println(Thread.currentThread().getName() + "| work START...");
                         try {
                             Thread.sleep(2000);
