@@ -1,4 +1,4 @@
-package com.java.api.mysql.hibernate.entity;
+package com.java.api.orm.hibernate.entity;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;

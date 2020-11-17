@@ -13,3 +13,10 @@ basic samples for certain java api
 * HQL, hibernate query language:
 * spring整合hibernate
 * c3p0
+
+## MongoDB
+* 数据库启动
+```sh
+cd $mongo_home
+mongod -f $conf_path
+```

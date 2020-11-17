@@ -1,7 +1,7 @@
-package com.java.api.hibernate;
+package com.java.api.orm.hibernate;
 
-import com.java.api.mysql.hibernate.dao.GoodsDao;
-import com.java.api.mysql.hibernate.entity.Goods;
+import com.java.api.orm.hibernate.dao.GoodsDao;
+import com.java.api.orm.hibernate.entity.Goods;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-        "classpath:/applicationContext.xml",
-        "classpath:/applicationContext-hibernate.xml",
+        "classpath:/applicationContext.xml"
 })
 public class GoodsDaoTest {
 
@@ -33,19 +32,6 @@ public class GoodsDaoTest {
         }
     }
 
-    /*@Test
-    public void update() {
-        Goods g = session.find(Goods.class, 1);
-        g.setName(g.getName() + "_NEW");
-        session.update(g);
-    }
-
-    @Test
-    public void find() {
-        Goods g = session.find(Goods.class, 1);
-        System.out.println(g);
-    }*/
-
     @Test
     public void list() {
         List<Goods> list = goodsDao.list();
@@ -53,10 +39,4 @@ public class GoodsDaoTest {
             System.out.println(g);
         }
     }
-
-   /* @Test
-    public void delete() {
-        Goods g = session.find(Goods.class, 1);
-        session.delete(g);
-    }*/
 }

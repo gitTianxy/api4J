@@ -2,9 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- 该文件已废弃, 用注解取代 -->
 <hibernate-mapping>
-
-    <class name="com.java.api.mysql.hibernate.entity.Goods" table="goods" schema="test_hibernate">
+    <class name="com.java.api.orm.hibernate.entity.Goods" table="goods" schema="test_hibernate">
         <id name="id" column="id"/>
         <property name="name" column="name"/>
         <property name="price" column="price"/>

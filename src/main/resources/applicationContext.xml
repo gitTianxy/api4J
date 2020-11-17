@@ -18,55 +18,6 @@
             </list>
         </property>
     </bean>
-    <!--<import resource="classpath:applicationContext-hibernate.xml" />-->
-
-    <!-- morphia mongo config -->
-    <bean id="api4jDs" class="com.java.api.mongo.morphia.base.MongoDSManager">
-        <property name="host" value="${mongo.host}"/>
-        <property name="port" value="${mongo.port}"/>
-        <property name="db" value="${mongo.db}"/>
-        <property name="user" value="${mongo.user}"/>
-        <property name="pwd" value="${mongo.pwd}"/>
-        <!--<property name="connectTimeout" value="${mongo.connecttimeout}"/>-->
-        <!--<property name="socketTimeout" value="${mongo.sockettimeout}"/>-->
-        <!--<property name="maxConnectIdleTime" value="${mongo.maxconnectidletime}"/>-->
-        <property name="mapPackages">
-            <array>
-                <value>${mongo.morphia.map.package}</value>
-            </array>
-        </property>
-    </bean>
-    <bean id="entityDemoMAO" class="com.java.api.mongo.morphia.mao.EntityDemoMAO">
-        <constructor-arg name="api4jDs" ref="api4jDs" />
-    </bean>
-
-    <!-- spring data mongo config -->
-    <!-- self-defined configurer
-    <bean id="mongoTemplate" class="com.java.api.mongo.springdata.MongoTemplateManager">
-        <property name="mongoUri" value="${mongo.uri}" />
-        <property name="socketTimeout" value="${mongo.sockettimeout}" />
-        <property name="connectTimeout" value="${mongo.connecttimeout}" />
-        <property name="maxConnectIdleTime" value="${mongo.maxconnectidletime}" />
-    </bean>
-    -->
-    <mongo:mongo-client id="api4jClient" host="localhost" port="27017"
-                        credentials="${mongo.user}:${mongo.pwd}@${mongo.db}">
-        <mongo:client-options connections-per-host="8"
-                              threads-allowed-to-block-for-connection-multiplier="4"
-                              connect-timeout="1000"
-                              max-wait-time="1500"
-                              socket-keep-alive="true"
-                              socket-timeout="1500" />
-    </mongo:mongo-client>
-    <mongo:db-factory id="api4jFactory" dbname="${mongo.db}" mongo-ref="api4jClient" />
-    <bean id="typeMapper" class="org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper">
-        <constructor-arg name="typeKey" value="#{null}" />
-    </bean>
-    <mongo:mapping-converter type-mapper-ref="typeMapper" db-factory-ref="api4jFactory"/>
-    <bean id="api4jTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-        <constructor-arg name="mongoDbFactory" ref="api4jFactory" />
-        <constructor-arg name="mongoConverter" ref="mappingConverter" />
-    </bean>
-    <mongo:repositories base-package="com.java.api.mongo.springdata" mongo-template-ref="api4jTemplate" />
-
+    <import resource="classpath:applicationContext-hibernate.xml" />
+    <import resource="classpath:applicationContext-mongo.xml" />
 </beans>

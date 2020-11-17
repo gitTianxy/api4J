@@ -1,6 +1,6 @@
-package com.java.api.mysql.hibernate.dao;
+package com.java.api.orm.hibernate.dao;
 
-import com.java.api.mysql.hibernate.entity.Goods;
+import com.java.api.orm.hibernate.entity.Goods;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
@@ -26,7 +26,7 @@ public class GoodsDao extends HibernateDaoSupport {
 
     @Transactional
     public List<Goods> list() {
-        /*Session session = null;
+        Session session = null;
         Transaction transaction = null;
         try {
             session = this.getSessionFactory().getCurrentSession();
@@ -35,7 +35,6 @@ public class GoodsDao extends HibernateDaoSupport {
         } finally {
             transaction.commit();
             session.close();
-        }*/
-        return (List<Goods>) this.getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Goods.class));
+        }
     }
 }

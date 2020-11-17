@@ -1,6 +1,6 @@
-package com.java.api.hibernate;
+package com.java.api.orm.hibernate;
 
-import com.java.api.mysql.hibernate.entity.Goods;
+import com.java.api.orm.hibernate.entity.Goods;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
