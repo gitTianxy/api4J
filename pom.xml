@@ -11,7 +11,7 @@
     <properties>
         <apache.log4j2.version>2.9.1</apache.log4j2.version>
         <slf4j.version>1.7.25</slf4j.version>
-        <org.springframework.version>5.0.6.RELEASE</org.springframework.version>
+        <org.springframework.version>5.2.20.RELEASE</org.springframework.version>
         <org.springdata.version>2.0.7.RELEASE</org.springdata.version>
         <hibernate.version>5.3.3.Final</hibernate.version>
     </properties>
